@@ -1,11 +1,5 @@
 {
     "parameters": {
-        "nodeCount": {
-            "type": "int",
-            "metadata": {
-                "description": "The number of pool nodes"
-            }
-        },
         "poolId": {
             "type": "string",
             "metadata": {
@@ -29,9 +23,9 @@
                 "nodeAgentSKUId": "batch.node.windows amd64"
             },
             "vmSize": "STANDARD_D3_V2",
-            "targetDedicatedNodes": "[parameters('nodeCount')]",
-            "enableAutoScale": false,
+            "enableAutoScale": true,
             "maxTasksPerNode": 1,
+            "autoScaleFormula":"$LastSampledActiveTasks= $ActiveTasks.GetSample(1);$needcompute=min($LastSampledActiveTasks,1);$TargetLowPriorityNodes=$needcompute?1:0;",
 			"applicationPackageReferences": [
                 {
                     "applicationId": "sqlpackage",
